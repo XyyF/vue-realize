@@ -4,6 +4,7 @@
 import {initMixin} from './init'
 import {stateMixin} from './state'
 import {eventsMixin} from './events'
+import {lifecycleMixin} from './lifecycle'
 
 function Vue() {
     if (!(this instanceof Vue)) {
@@ -16,3 +17,4 @@ function Vue() {
 initMixin(Vue)
 stateMixin(Vue)
 eventsMixin(Vue)
+lifecycleMixin(Vue)
