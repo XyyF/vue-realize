@@ -29,8 +29,8 @@ class Observer {
 }
 
 /**
- * 收集数据依赖
- * @param value 需要收集依赖的对象数据
+ * 建立依附于观察对象上的观察者类
+ * @param value 观察对象
  * 将会在该对象及其下层对象中定义 get set 修饰器;
  * 当调用 get 时，会收集当前的watch;
  * 调用 set 时，触发更新;
