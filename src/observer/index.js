@@ -2,15 +2,21 @@
  * Created by rengar on 2020/4/22.
  */
 
+import {Dep} from './dep'
+
 /**
- * 依附于观察对象上的观察者类，将观察对象的get和set替换为依赖收集项;
+ * 注册服务，将观察对象的get和set替换为依赖收集项;
  */
 class Observer {
+    // 当前注册服务的对象
     value;
+    // 当前观测对象的父级触发者收集筐
+    // - 当前属性有增、删时，会执行父级属性的观察者
     dep;
 
     constructor(value) {
         this.value = value
+        this.dep = new Dep()
         Object.defineProperty(this.value, '__ob__', {
             value: this,
             enumerable: false,
@@ -48,16 +54,25 @@ export function observer(value) {
 
 /**
  * 定义容器收集器
- * @param value
+ * @param obj
  * @param key
  */
-function defineReactive(value, key) {
+function defineReactive(obj, key) {
+    // 此处的筐是用来收集 value[key] 的触发器的
+    const dep = new Dep()
+    const property = Object.getOwnPropertyDescriptor(obj, key)
+    const getter = property && property.get
+    const setter = property && property.set
+
     Object.defineProperty(value, key, {
         get() {
-
+            const value = getter ? getter() : obj[key]
+            if (Dep.target) {
+                dep.depend()
+            }
+            return value
         },
         set() {
-
         },
     })
 }
