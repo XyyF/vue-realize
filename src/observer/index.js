@@ -63,10 +63,13 @@ function defineReactive(obj, key) {
     const property = Object.getOwnPropertyDescriptor(obj, key)
     const getter = property && property.get
     const setter = property && property.set
-
-    Object.defineProperty(value, key, {
+    // 不要再get中调用 obj[key] 会循环
+    const val = obj[key]
+    // 深层次注册服务
+    const childOb = observer(val)
+    Object.defineProperty(obj, key, {
         get() {
-            const value = getter ? getter() : obj[key]
+            const value = getter ? getter() : val
             if (Dep.target) {
                 dep.depend()
             }
