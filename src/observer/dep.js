@@ -39,6 +39,15 @@ export class Dep {
             Dep.target.addDep(this)
         }
     }
+
+    // 通知更新
+    notify() {
+        // 执行方法前拷贝一份
+        const subs = this.subs.slice()
+        for(let l = subs.length, i = 0; i < l; i++) {
+            subs[i].update()
+        }
+    }
 }
 
 Dep.target = null

@@ -64,7 +64,7 @@ function defineReactive(obj, key) {
     const getter = property && property.get
     const setter = property && property.set
     // 不要再get中调用 obj[key] 会循环
-    const val = obj[key]
+    let val = obj[key]
     // 深层次注册服务
     const childOb = observer(val)
     Object.defineProperty(obj, key, {
@@ -75,7 +75,13 @@ function defineReactive(obj, key) {
             }
             return value
         },
-        set() {
+        set(newVal) {
+            const value = getter ? getter() : val
+            // 值相同的话，就不用更新
+            if (newVal === value) return
+            if (setter) setter.call(obj, newVal)
+            else val = newVal
+            dep.notify()
         },
     })
 }
