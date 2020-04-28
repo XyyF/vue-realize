@@ -1,0 +1,28 @@
+{
+  "name": "vue-realize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XyyF/vue-realize.git"
+  },
+  "author": "rengar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XyyF/vue-realize/issues"
+  },
+  "homepage": "https://github.com/XyyF/vue-realize#readme",
+  "devDependencies": {
+    "babel-preset-latest": "^6.24.1",
+    "rollup": "^2.7.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@rollup/plugin-babel": "^5.0.0"
+  }
+}
