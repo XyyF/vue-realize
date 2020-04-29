@@ -1,6 +1,9 @@
 /**
  * Created by rengar on 2020/4/29.
  */
+import { Dep, pushTarget, popTarget } from '@/observer/dep'
+
+const dep = new Dep()
 
 describe('Dep', () => {
     describe('instance', () => {
