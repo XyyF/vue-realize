@@ -51,11 +51,14 @@ export class Dep {
 }
 
 Dep.target = null
+const targetQueue = []
 // 指定当前的观察者实例
 export function pushTarget(target) {
+    targetQueue.push(target)
     Dep.target = target
 }
 // 消除观察者实例
 export function popTarget() {
-    Dep.target = null
+    targetQueue.pop()
+    Dep.target = targetQueue[targetQueue.length - 1]
 }
