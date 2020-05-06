@@ -4,6 +4,7 @@
 import { observer } from '@/observer/index'
 
 describe('Observer', () => {
+    let uid = 0
     describe('observer', () => {
         it('注册服务', () => {
             const data = {
@@ -19,7 +20,7 @@ describe('Observer', () => {
             expect(data['__ob__']).toEqual({
                 value: {a: 1, b: 2},
                 dep: {
-                    id: 0,
+                    id: uid,
                     subs: [],
                 },
             })
@@ -35,7 +36,7 @@ describe('Observer', () => {
             }
             const ob = observer(data)
             expect(ob.dep).toEqual({
-                id: 5,
+                id: uid + 5,
                 subs: [],
             })
             observer(data)
@@ -44,7 +45,7 @@ describe('Observer', () => {
             }
             const ob2 = observer(data2)
             expect(ob2.dep).toEqual({
-                id: 7,
+                id: uid + 7,
                 subs: [],
             })
         })

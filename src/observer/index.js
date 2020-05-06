@@ -17,6 +17,7 @@ class Observer {
     constructor(value) {
         this.value = value
         this.dep = new Dep()
+        console.log('rengar log class dep', this.dep.id)
         Object.defineProperty(this.value, '__ob__', {
             value: this,
             enumerable: false,
@@ -60,6 +61,7 @@ export function observer(value) {
 function defineReactive(obj, key) {
     // 此处的筐是用来收集 value[key] 的触发器的
     const dep = new Dep()
+    console.log('rengar log dep', dep.id, key)
     const property = Object.getOwnPropertyDescriptor(obj, key)
     const getter = property && property.get
     const setter = property && property.set
