@@ -50,4 +50,18 @@ describe('Watcher', () => {
             ]))
         })
     })
+
+    describe('expOrFn', () => {
+        it('数据表达式', () => {
+            const vm = {a: 1}
+            const callback = jest.fn()
+            const watcher = new Watcher(data, 'a', callback)
+            expect(watcher.depIds).toEqual(new Set([
+                uid + 1,
+            ]))
+            expect(watcher.cb).toEqual(callback)
+            data.a = 100
+            expect(callback).toBeCalledTimes(1)
+        })
+    })
 })

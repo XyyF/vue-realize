@@ -35,7 +35,7 @@ export class Watcher {
 
     get() {
         pushTarget(this)
-        const value = this.getter.call(this.vm)
+        const value = this.getter.call(this.vm, this.vm)
         popTarget()
         // 清除无用的依赖
         this.cleanupDeps()
@@ -58,9 +58,9 @@ export class Watcher {
     }
 
     cleanupDeps() {
-        for (let i = 0, l = this.newDeps.length; i < l; i++) {
-            const dep = this.newDeps[i]
-            if (!this.depIds.has(dep.id)) {
+        for (let i = 0, l = this.depIds.length; i < l; i++) {
+            const dep = this.depIds[i]
+            if (!this.newDeps.has(dep.id)) {
                 // 移除dep中的依赖
                 dep.removeSubs(this)
             }
