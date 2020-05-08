@@ -23,6 +23,11 @@ export class Dep {
         this.subs = [];
     }
 
+    removeSubs(sub) {
+        const idx = this.subs.indexOf(sub)
+        this.subs.splice(idx, 1)
+    }
+
     /**
      * 添加观察者实例
       * @param sub

@@ -3,6 +3,7 @@
  */
 import {popTarget, pushTarget} from './dep'
 import {queueWatcher} from './scheduler'
+import {parsePath} from '../util'
 
 /**
  * 观察者 -- 针对表达式触发 get 从而达到依赖收集
@@ -61,7 +62,7 @@ export class Watcher {
             const dep = this.newDeps[i]
             if (!this.depIds.has(dep.id)) {
                 // 移除dep中的依赖
-                // dep.removeSubs(this)
+                dep.removeSubs(this)
             }
         }
         [this.depIds, this.newDepIds] = [this.newDepIds, this.depIds];
@@ -84,8 +85,4 @@ export class Watcher {
             this.cb.call(this.vm, this.value, oldValue)
         }
     }
-}
-
-function parsePath() {
-
 }
