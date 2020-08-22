@@ -7,7 +7,8 @@ import babel from '@rollup/plugin-babel'
 export default {
     input: path.join(__dirname, './src/observer/index.js'),
     output: {
-        name: 'global',
+        // window.global.vue
+        name: 'vue',
         file: 'build/index.js',
         format: 'umd'
     },
