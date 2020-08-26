@@ -3,5 +3,9 @@
  */
 
 class Vnode {
-
+    elm;
+    key;
+    tag;
+    isComment;
+    text;
 }
