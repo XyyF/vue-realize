@@ -17,15 +17,33 @@ function sameVnode(a, b) {
 }
 
 /**
+ * 核心Diff，对比children
+ */
+function updateChildren() {
+
+}
+
+/**
  * 对比子节点
  * @param oldVnode
  * @param vnode
  */
 function pathVnode(oldVnode, vnode) {
+    const ch = vnode.children, oldCh = oldVnode.children
     // oldVnode 文本节点 无children children
     // vnode 文本节点 无children children
     if (isDef(vnode.text)) {
-
+        // 替换本文节点内容
+    } else {
+        if (isDef(ch) && isDef(oldCh)) {
+            // 核心Diff
+        } else if (isDef(ch)) {
+            // 添加节点
+        } else if (isDef(ch)) {
+            // 删除节点
+        } else if (isDef(oldVnode.text)) {
+            // 清空文本节点内容
+        }
     }
 }
 
