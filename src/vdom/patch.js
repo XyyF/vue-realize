@@ -17,10 +17,43 @@ function sameVnode(a, b) {
 }
 
 /**
- * 核心Diff，对比children
+ * 核心Diff，对比children，双端比较法
  */
-function updateChildren() {
+function updateChildren(oldVnode, vnode) {
+    const oldCh = oldVnode.children
+    const ch = vnode.children
+    let oldStartIdx = 0, newStartIdx = 0
+    let oldEndIdx = oldCh.length - 1, newEndIdx = ch.length - 1
 
+    while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+        if (sameVnode(oldCh[oldStartIdx], ch[newStartIdx])) {
+            // 首端节点相同
+            pathVnode(oldCh[oldStartIdx], ch[newStartIdx])
+            oldStartIdx++
+            newStartIdx++
+        } else if (sameVnode(oldCh[oldEndIdx], ch[newEndIdx])) {
+            // 尾端节点相同
+            pathVnode(oldCh[oldEndIdx], ch[newEndIdx])
+            oldEndIdx--
+            newEndIdx--
+        } else if (sameVnode(oldCh[oldStartIdx], ch[newEndIdx])) {
+            // old首端 === new尾端
+            pathVnode(oldCh[oldStartIdx], ch[newEndIdx])
+            // TODO 转移节点
+            oldStartIdx++
+            newEndIdx--
+        } else if (sameVnode(oldCh[oldEndIdx], ch[newStartIdx])) {
+            // old尾端 === new首端
+            pathVnode(oldCh[oldEndIdx], ch[newStartIdx])
+            // TODO 转移节点
+            oldEndIdx--
+            newStartIdx++
+        } else {
+            // TODO 查看可复用节点
+            // TODO 转移 || 新增节点
+            newStartIdx++
+        }
+    }
 }
 
 /**
@@ -37,12 +70,13 @@ function pathVnode(oldVnode, vnode) {
     } else {
         if (isDef(ch) && isDef(oldCh)) {
             // 核心Diff
+            updateChildren(oldVnode, vnode)
         } else if (isDef(ch)) {
-            // 添加节点
+            // TODO 添加节点
         } else if (isDef(ch)) {
-            // 删除节点
+            // TODO 删除节点
         } else if (isDef(oldVnode.text)) {
-            // 清空文本节点内容
+            // TODO 清空文本节点内容
         }
     }
 }
